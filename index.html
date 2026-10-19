@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Australia on Screen</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Vega / Vega-Lite -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">AUSTRALIA ON SCREEN</a>
+
+      <div class="nav-links">
+        <a href="#change">Change</a>
+        <a href="#success">Success</a>
+        <a href="#world">World</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <header class="hero" id="top">
+    <div class="container hero-inner">
+      <p class="kicker">Australian Cinema · 1980–2019</p>
+      <h1>Australia<br>on Screen</h1>
+      <p class="hero-subtitle">
+        How Australian cinema changed — and found its place in the world.
+      </p>
+      <p class="hero-copy">
+        Explore four decades of Australian film through changing genres,
+        budgets, box-office performance, audience reception, production
+        companies and international connections.
+      </p>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- =======================
+         CHAPTER 1
+    ======================== -->
+    <section class="section light" id="change">
+      <div class="container">
+
+        <div class="chapter-header">
+          <span class="chapter-number">01</span>
+          <div>
+            <p class="kicker">Australian Cinema in Motion</p>
+            <h2>How has Australian cinema changed?</h2>
+            <p>
+              Begin with the changing number of films and the genres that
+              rose, fell and returned over time.
+            </p>
+          </div>
+        </div>
+
+
+        <article class="visual-row cinema-story">
+          <div class="visual-copy">
+            <span class="visual-number">01</span>
+            <h3>A Cinema in Motion</h3>
+            <p>
+              The number of Australian films represented in the dataset
+              changes considerably from year to year.
+            </p>
+          </div>
+
+          <div class="visual-card">
+            <div id="vis1" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="cinema-story-title">
+            <h4 id="cinema-story-title">From a Quiet Beginning to a Growing Presence</h4>
+            <p>Australian cinema did not grow overnight. Throughout the 1980s and 1990s, Australian-linked films appeared only sporadically in the dataset, with most years recording fewer than five titles. The early 2000s brought signs of growth, but the real turning point came in 2010, when the recorded number of films rose sharply.</p>
+            <p>By 2014, production representation reached its peak of 31 films, marking a striking contrast with earlier decades. Yet growth was far from steady. The following years saw repeated rises and falls, suggesting a changing rather than consistently expanding film landscape.</p>
+            <p>Explore different genres to discover which contributed to these shifts.</p>
+          </aside>
+        </article>
+
+
+        <article class="visual-row cinema-story">
+          <div class="visual-copy">
+            <span class="visual-number">02</span>
+            <h3>Genres Rise, Fall and Return</h3>
+            <p>
+              Genre rankings reveal how different types of Australian films
+              moved in and out of prominence.
+            </p>
+          </div>
+
+          <div class="visual-card">
+            <div id="vis2" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="genre-story-title">
+            <h4 id="genre-story-title">The Changing Faces of Australian Cinema</h4>
+            <p>Australian cinema has never been defined by a single genre. Comedy dominated the 1980s and 1990s, ranking first in both decades. However, the spotlight gradually shifted as Action claimed the top position in the 2000s, followed by Drama in the 2010s.</p>
+            <p>By the 2020s, Horror had climbed to first place, while Comedy had fallen to fifth, marking a striking reversal in the genre rankings.</p>
+            <p>Yet not every genre followed this cycle. Drama remained remarkably consistent, ranking among the top three across all five decades. Meanwhile, Animation returned to the top five in the 2020s.</p>
+            <p class="genre-story-conclusion">These shifting rankings reveal how the genre landscape represented in the dataset has evolved, with different types of films rising to prominence over time.</p>
+          </aside>
+        </article>
+
+
+        <article class="visual-row cinema-story">
+          <div class="visual-copy">
+            <span class="visual-number">03</span>
+            <h3>Changing Genres, Changing Fortunes</h3>
+            <p>
+              Median box-office gross shows that commercial fortunes differed
+              across both genre and era.
+            </p>
+          </div>
+
+          <div class="visual-card">
+            <div id="vis3" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="fortunes-story-title">
+            <h4 id="fortunes-story-title">More Films, Not Always Bigger Fortunes</h4>
+            <p>A genre’s prominence does not always translate into box-office success. The 2000s stood out as a period of remarkable commercial performance in the dataset, with Animation reaching a median gross of $260 million, followed by Horror at $68.3 million and Comedy at $55 million.</p>
+            <p>Yet these fortunes did not last. By the 2020s, Animation's median had fallen to $1.2 million, while Comedy dropped below $1 million.</p>
+            <p>The most striking contrast comes from Horror. Although it ranked first in film count during the 2020s, its median gross was just $1.3 million, compared with $7 million for Action.</p>
+            <p class="genre-story-conclusion">Together, these patterns reveal an important distinction: producing more films does not necessarily mean earning more at the box office.</p>
+          </aside>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- =======================
+         CHAPTER 2
+    ======================== -->
+    <section class="section warm" id="success">
+      <div class="container">
+
+        <div class="chapter-header">
+          <span class="chapter-number">02</span>
+          <div>
+            <p class="kicker">Commercial Success</p>
+            <h2>What does success look like?</h2>
+            <p>
+              Box office, production budgets and ratings tell different
+              stories about how Australian films performed.
+            </p>
+          </div>
+        </div>
+
+
+        <article class="visual-row cinema-story story-left">
+          <div class="visual-copy wide-copy">
+            <span class="visual-number">04</span>
+            <h3>From Era to Genre to Box Office</h3>
+            <p>
+              Follow films from their era, through genre, and into different
+              box-office tiers.
+            </p>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="box-office-story-title">
+            <h4 id="box-office-story-title">Many Films, Few Blockbusters</h4>
+            <p>As Australian cinema evolved, its journey to box-office success followed very different paths. The 2010s contributed the largest flow of films with reported box-office earnings, while Action emerged as one of the most prominent individual genres.</p>
+            <p>Yet more films did not necessarily mean more blockbusters. Despite the diversity of genres and decades, the largest share of films flowed into the Under $10 million category.</p>
+            <p>Action films appeared across all box-office tiers, including the highest, but only a relatively small proportion of films reached $150 million or more.</p>
+            <p>This reveals a striking contrast: while Australian-linked cinema expanded its presence in the dataset, major commercial breakthroughs remained comparatively rare.</p>
+            <p>Hover over a genre to discover where its films ended up.</p>
+          </aside>
+
+          <div class="visual-card large-card">
+            <div id="vis4" class="visualisation"></div>
+          </div>
+        </article>
+
+
+        <article class="visual-row cinema-story story-left">
+          <div class="visual-copy">
+            <span class="visual-number">05</span>
+            <h3>Blockbusters and Expensive Misses</h3>
+            <p>
+              Reported production budgets and box-office gross do not always
+              move together.
+            </p>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="budget-story-title">
+            <h4 id="budget-story-title">Big Budgets, Bigger Risks</h4>
+            <p>In cinema, spending millions does not guarantee making millions. While some Australian-linked films achieved extraordinary box-office returns, others struggled to recover even their reported production budgets.</p>
+            <p>The Matrix Reloaded stands out as a major success, with its worldwide gross exceeding its production budget by $588.6 million. Similarly, The Lego Movie and The Matrix recorded impressive gaps of over $400 million.</p>
+            <p>Yet the opposite story is just as striking. The Adventures of Pluto Nash earned approximately $92.9 million less than its production budget, followed by Better Man with a gap of $87.5 million.</p>
+            <p class="genre-story-conclusion">These contrasting outcomes reveal a fundamental reality of filmmaking: a larger investment may create greater opportunities, but it also brings substantial financial risk. Even ambitious productions can fall far short of commercial expectations.</p>
+          </aside>
+
+          <div class="visual-card">
+            <div id="vis5" class="visualisation"></div>
+          </div>
+        </article>
+
+
+        <article class="visual-row cinema-story story-left">
+          <div class="visual-copy">
+            <span class="visual-number">06</span>
+            <h3>Did Audiences Think the Films Got Better?</h3>
+            <p>
+              Compare the share of low, moderate and highly rated films across
+              decades.
+            </p>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="ratings-story-title">
+            <h4 id="ratings-story-title">More Films, But Were They Better?</h4>
+            <p>As Australian-linked cinema expanded, did audience ratings improve alongside it? Surprisingly, the answer is far from straightforward.</p>
+            <p>The 1990s emerged as the strongest decade for highly rated films, with 37.1% scoring 7 or above. Yet this positive picture changed dramatically in the 2000s, when the share of highly rated films dropped to just 12.5%, while low-rated films rose to 45.3%.</p>
+            <p>By the 2020s, the balance had shifted again. Low-rated films declined to 20.8%, but a striking 60% received moderate ratings, suggesting a move towards more consistently average reception rather than exceptional acclaim.</p>
+            <p class="genre-story-conclusion">These shifts reveal that more films do not necessarily mean better-rated films. Explore different genres to see whether this pattern holds across Australian cinema.</p>
+            <p>Explore different genres to discover whether these rating trends hold across Australian cinema, or if some genres tell a different story.</p>
+          </aside>
+
+          <div class="visual-card">
+            <div id="vis6" class="visualisation"></div>
+          </div>
+        </article>
+
+
+        <article class="visual-row cinema-story story-left">
+          <div class="visual-copy wide-copy">
+            <span class="visual-number">07</span>
+            <h3>The Companies Behind Australian Film</h3>
+            <p>
+              Production companies differ in both output and audience
+              reception.
+            </p>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="companies-story-title">
+            <h4 id="companies-story-title">Behind the Screen: A Few Names, Many Films</h4>
+            <p>Behind every film lies a network of companies, but not all have an equal presence in Australian-linked cinema.</p>
+            <p>Warner Bros. dominates the dataset with 29 films, followed by Screen Australia with 21. In contrast, Australian Film Finance Corporation appears in just nine films, highlighting how strongly film representation is concentrated among a handful of organisations.</p>
+            <p>Yet quantity does not tell the whole story. While larger rectangles represent more films, darker shades reveal higher median audience ratings, offering a different perspective on each company's contribution.</p>
+            <p>These differences raise an important question: Does greater output necessarily translate into better audience reception?</p>
+            <p>Brush across the timeline and adjust the minimum film count to discover how the companies represented in Australian cinema have changed over time.</p>
+          </aside>
+
+          <div class="visual-card large-card">
+            <div id="vis7" class="visualisation"></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- =======================
+         CHAPTER 3
+    ======================== -->
+    <section class="section dark" id="world">
+      <div class="container">
+
+        <div class="chapter-header">
+          <span class="chapter-number">03</span>
+          <div>
+            <p class="kicker">Australia on the Global Stage</p>
+            <h2>How does Australian cinema connect to the world?</h2>
+            <p>
+              Place Australian cinema in a wider international context through
+              national film output, average ratings and co-production links.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="global-filters" aria-labelledby="world-filter-title">
+          <h3 id="world-filter-title">Explore the world of film</h3>
+          <p>Filter all three maps below. Drag across the timeline to select years; double-click it to clear the time selection.</p>
+          <fieldset id="world-filter-controls" disabled>
+            <legend>Genre and release years</legend>
+            <div class="filter-controls">
+              <label>Genre <select id="world-genre"><option>All genres</option></select></label>
+              <label>From <input id="world-year-start" type="number" min="1980" max="2025" value="1980"></label>
+              <label>To <input id="world-year-end" type="number" min="1980" max="2025" value="2025"></label>
+              <button id="world-filter-reset" type="button">Reset filters</button>
+            </div>
+            <svg id="world-timeline" viewBox="0 0 920 135" role="img" aria-label="Film counts by release year. Drag to select a time range; use From and To fields for keyboard access."></svg>
+          </fieldset>
+          <p id="world-filter-status" role="status" aria-live="polite">Loading map filters…</p>
+        </div>
+
+        <article class="map-block visual-row cinema-story">
+          <div class="map-copy">
+            <span class="visual-number">08</span>
+            <h3>Number of Films by Country</h3>
+            <p>
+              Film counts represented in the dataset vary substantially
+              between countries.
+            </p>
+          </div>
+
+          <div class="visual-card map-card">
+            <div id="vis8" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="production-story-title">
+            <h4 id="production-story-title">A Small Player in a Global Industry</h4>
+            <p>Cinema is a global industry, but film production is far from evenly distributed across the world.</p>
+            <p>The United States dominates the dataset with 17,004 films, far ahead of France (2,932) and the United Kingdom (2,894), which rank second and third respectively.</p>
+            <p>Against these global giants, Australia occupies a much smaller position, ranking 13th with just 470 films. Yet its relatively modest presence raises an important question: does producing fewer films necessarily mean having less influence on the international stage?</p>
+            <p>Film counts reveal only one side of the story. Audience reception and international collaborations may offer a different perspective on Australia's place in global cinema.</p>
+            <p>Explore different genres and time periods to discover how the geography of film production changes.</p>
+          </aside>
+        </article>
+
+
+        <article class="map-block visual-row cinema-story">
+          <div class="map-copy">
+            <span class="visual-number">09</span>
+            <h3>Average Film Score by Country</h3>
+            <p>
+              Average scores provide another way to compare national film
+              landscapes.
+            </p>
+          </div>
+
+          <div class="visual-card map-card">
+            <div id="vis9" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="global-ratings-story-title">
+            <h4 id="global-ratings-story-title">Beyond Quantity: A Different Measure of Success</h4>
+            <p>Producing more films may increase a country's global presence, but does it necessarily lead to better audience reception?</p>
+            <p>While the previous map revealed the dominance of major film-producing nations, audience ratings tell a different story. Across the world, variations in blue reveal a diverse landscape of audience reception, suggesting that production volume alone cannot explain how films are rated.</p>
+            <p>Australia, despite ranking 13th in film count, records an average audience score of 6.30, placing it 93rd globally in the dataset.</p>
+            <p>This contrast highlights an important distinction: a country's presence in global cinema does not necessarily reflect its audience ratings. Yet ratings are only one measure of success, and smaller national samples may produce less reliable comparisons.</p>
+            <p>Explore different genres and time periods to discover how Australia's audience ratings compare with the rest of the world.</p>
+          </aside>
+        </article>
+
+
+        <article class="map-block visual-row cinema-story">
+          <div class="map-copy">
+            <span class="visual-number">10</span>
+            <h3>How Australian Cinema Connects to the World</h3>
+            <p>
+              International co-productions connect Australia to a broader
+              global production network.
+            </p>
+          </div>
+
+          <div class="visual-card map-card">
+            <div id="vis10" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="partnerships-story-title">
+            <h4 id="partnerships-story-title">Beyond Borders: Australia's Global Cinema Connections</h4>
+            <p>Australia's place in global cinema is not defined by film production numbers or audience ratings alone. Beyond its domestic industry lies a network of international partnerships.</p>
+            <p>The United States stands as Australia's largest co-production partner, appearing alongside Australia in 183 films in the dataset. The United Kingdom follows with 85 films, while Canada ranks third with 23, revealing particularly strong connections with English-speaking film industries.</p>
+            <p>Yet Australia's collaborations extend far beyond these three countries, reaching across Europe, Asia and neighbouring New Zealand.</p>
+            <p>These connections reveal another dimension of Australian cinema: its participation in an international network of filmmaking.</p>
+            <p>Explore different genres and time periods to discover how Australia's global partnerships have evolved.</p>
+          </aside>
+        </article>
+
+      </div>
+    </section>
+
+
+    <section class="sources">
+      <div class="container sources-grid">
+        <div>
+          <p class="kicker">Data & Method</p>
+          <h2>Sources</h2>
+        </div>
+
+        <div>
+          <p>
+            <strong>movies.csv</strong> is used for film history, genres,
+            budget, gross, ratings and production companies.
+          </p>
+          <p>
+            <strong>tmdb_5000_movies.csv</strong> is used for international
+            production-country connections.
+          </p>
+          <p class="note">
+            Counts and financial measures describe records represented in the
+            selected datasets rather than a complete census of all films.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="container footer-inner">
+      <span>FIT3179 Data Visualisation 2</span>
+      <span>Australian Movies</span>
+    </div>
+  </footer>
+
+
+  <!--
+    IMPORTANT:
+    Your files in /js are JSON Vega/Vega-Lite specifications even though
+    they currently use the .js extension.
+
+    Therefore they must NOT be loaded with <script src="...">.
+    This loader reads them as text, parses the JSON, and sends the result
+    to vegaEmbed().
+  -->
+  <script src="js/world-filters.js"></script>
+  <script>
+    const visualisations = [
+      ["vis1",  "js/1_A_Cinema_in_Motion.js"],
+      ["vis2",  "js/2_Genres_Rise_Fall_and_Return.js"],
+      ["vis3",  "js/3_Changing_Genres_Changing_Fortunes.js"],
+      ["vis4",  "js/4_From_Era_to_Genre_to_BoxOffice.js"],
+      ["vis5",  "js/5_Blockbusters_and_Expensive_Misses.js"],
+      ["vis6",  "js/6_Did_Audiences_Think_the_Films_Got_Better.js"],
+      ["vis7",  "js/7_The_Companies_Behind_Australian_Fil.js"],
+      ["vis8",  "js/8_Number_of_Films_by_Country.js"],
+      ["vis9",  "js/9_Score_of_Films_by_Country.js"],
+      ["vis10", "js/How Australian CinemaConnects to the World.js"]
+    ];
+
+
+    const worldViews = new Map();
+
+    async function loadVisualisation(targetId, filePath) {
+      const target = document.getElementById(targetId);
+
+      try {
+        target.innerHTML = '<p class="loading-message">Loading visualisation…</p>';
+
+        const response = await fetch(encodeURI(filePath));
+
+        if (!response.ok) {
+          throw new Error(
+            `Could not load ${filePath} (${response.status} ${response.statusText})`
+          );
+        }
+
+        const text = await response.text();
+        const spec = JSON.parse(text);
+
+        target.innerHTML = "";
+
+        const embedded = await vegaEmbed(`#${targetId}`, spec, {
+          actions: false,
+          renderer: "svg"
+        });
+
+        if (["vis8", "vis9", "vis10"].includes(targetId)) {
+          worldViews.set(targetId, embedded.view);
+        }
+
+        // Use the rendered bounds rather than spec.width: Vega adds room
+        // for titles, axes, legends and facets outside the plotting area.
+        const svg = target.querySelector("svg");
+        if (svg) {
+          const width = Number(svg.getAttribute("width"));
+          const height = Number(svg.getAttribute("height"));
+
+          if (width > 0 && height > 0) {
+            if (!svg.hasAttribute("viewBox")) {
+              svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+            }
+            svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+            svg.style.setProperty("--chart-width", `${width}px`);
+          }
+        }
+
+      } catch (error) {
+        console.error(filePath, error);
+
+        target.innerHTML = `
+          <div class="chart-error">
+            <strong>Visualisation could not be loaded.</strong>
+            <span>${filePath}</span>
+            <small>${error.message}</small>
+          </div>
+        `;
+      }
+    }
+
+
+    const worldLoads = [];
+    for (const [targetId, filePath] of visualisations) {
+      const loading = loadVisualisation(targetId, filePath);
+      if (["vis8", "vis9", "vis10"].includes(targetId)) {
+        worldLoads.push(loading);
+      }
+    }
+    Promise.all(worldLoads)
+      .then(() => initialiseWorldFilters(worldViews))
+      .catch(error => {
+        console.error("World filter initialisation failed", error);
+        document.getElementById("world-filter-controls").disabled = true;
+        document.getElementById("world-filter-status").textContent =
+          "Map filters could not load. Please reload the page to retry.";
+      });
+  </script>
+
+</body>
+</html>
