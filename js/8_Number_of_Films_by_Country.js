@@ -26,6 +26,18 @@
   },
   "signals": [
     {
+      "name": "mapZoom",
+      "value": 1
+    },
+    {
+      "name": "mapPanX",
+      "value": 0
+    },
+    {
+      "name": "mapPanY",
+      "value": 0
+    },
+    {
       "name": "selectedGenre",
       "value": "All genres"
     },
@@ -56,13 +68,15 @@
     {
       "name": "worldProjection",
       "type": "equalEarth",
-      "scale": 150,
+      "scale": {
+        "signal": "150 * mapZoom"
+      },
       "translate": [
         {
-          "signal": "width / 2"
+          "signal": "width / 2 + mapPanX"
         },
         {
-          "signal": "height / 2 + 15"
+          "signal": "height / 2 + 15 + mapPanY"
         }
       ]
     }
@@ -268,10 +282,10 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "datum.centroid[0] - (hoverCountry === datum.country ? 4 : 2.5)"
+            "signal": "datum.centroid[0] - 2.5"
           },
           "x2": {
-            "signal": "datum.centroid[0] + (hoverCountry === datum.country ? 4 : 2.5)"
+            "signal": "datum.centroid[0] + 2.5"
           },
           "y": {
             "signal": "datum.centroid[1] - scale('barHeight', datum.film_count)"
