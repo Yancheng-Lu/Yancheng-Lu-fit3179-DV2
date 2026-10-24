@@ -230,9 +230,9 @@
             ],
 
             "range": [
-              "#3A7CA5",
-              "#E6B566",
-              "#3B9B73"
+              "#DCEAF3",
+              "#77A6C6",
+              "#123F6B"
             ]
           },
 
@@ -307,8 +307,8 @@
 
         "color": {
           "condition": {
-            "test": "datum.rating_group === 'Moderate'",
-            "value": "#3E3524"
+            "test": "datum.rating_group !== 'Highly Rated'",
+            "value": "#163247"
           },
           "value": "#FFFFFF"
         },
