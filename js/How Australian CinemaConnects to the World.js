@@ -81,9 +81,16 @@
         "type": "csv",
         "parse": {
           "year": "number",
+          "score": "number",
           "is_australian": "number"
         }
-      }
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum.year) && datum.year >= 1980 && datum.year <= 2025 && isValid(datum.score) && isFinite(datum.score) && datum.score > 0 && datum.production_countries != null && trim(datum.production_countries) !== ''"
+        }
+      ]
     },
     {
       "name": "world",
@@ -170,6 +177,11 @@
           "partner": "Netherlands",
           "lon": 5.29,
           "lat": 52.13
+        },
+        {
+          "partner": "Russia",
+          "lon": 105.3,
+          "lat": 61.5
         }
       ]
     },
@@ -183,6 +195,11 @@
         {
           "type": "filter",
           "expr": "datum.is_australian === 1 && datum.year >= 1980 && datum.year <= 2025 && datum.production_countries != null && datum.production_countries !== ''"
+        },
+        {
+          "type": "formula",
+          "as": "film_id",
+          "expr": "isValid(datum.tmdb_id) && trim(toString(datum.tmdb_id)) !== '' && isFinite(toNumber(datum.tmdb_id)) && toNumber(datum.tmdb_id) > 0 ? 'tmdb:' + toString(toNumber(datum.tmdb_id)) : 'legacy:' + lower(trim(datum.name || '')) + '|' + toString(datum.year) + '|' + lower(trim(datum.director || ''))"
         },
         {
           "type": "formula",
@@ -206,7 +223,7 @@
         {
           "type": "formula",
           "as": "partner",
-          "expr": "datum.partner_raw === 'United States of America' || datum.partner_raw === 'United States' ? 'United States of America' : datum.partner_raw === 'UK' ? 'United Kingdom' : datum.partner_raw"
+          "expr": "datum.partner_raw === 'United States' || datum.partner_raw === 'United States of America' ? 'United States of America' : datum.partner_raw === 'UK' ? 'United Kingdom' : (datum.partner_raw === 'Russia' || datum.partner_raw === 'Russian Federation') ? 'Russia' : datum.partner_raw"
         },
         {
           "type": "filter",
@@ -235,8 +252,7 @@
         {
           "type": "aggregate",
           "groupby": [
-            "name",
-            "year",
+            "film_id",
             "partner",
             "partner_lon",
             "partner_lat"
@@ -245,7 +261,7 @@
             "count"
           ],
           "fields": [
-            "name"
+            null
           ],
           "as": [
             "duplicate_count"
@@ -262,7 +278,7 @@
             "count"
           ],
           "fields": [
-            "name"
+            null
           ],
           "as": [
             "coproduction_count"

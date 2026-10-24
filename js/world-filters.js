@@ -69,7 +69,7 @@ function initialiseWorldFilters(views) {
       const count = rows.filter(row => Number(row.year) >= state.start && Number(row.year) <= state.end &&
         (state.genre === 'All genres' || genresOf(row).includes(state.genre))).length;
       status.textContent = `${state.genre} · ${state.start}–${state.end} · ${count.toLocaleString()} film records. ` +
-        (count ? 'All three maps share these filters; scores require a valid rating and links require an Australian co-production.' : 'No films match this selection. Try another genre or a wider time range.');
+        (count ? 'All three maps share the same valid-score film records and filters; links show Australian co-productions.' : 'No films match this selection. Try another genre or a wider time range.');
     } catch (error) {
       console.error(error);
       status.textContent = 'The maps could not update. Reload the page to retry.';

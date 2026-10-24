@@ -73,9 +73,16 @@
         "type": "csv",
         "parse": {
           "year": "number",
-          "score": "number"
+          "score": "number",
+          "is_australian": "number"
         }
-      }
+      },
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "isValid(datum.year) && datum.year >= 1980 && datum.year <= 2025 && isValid(datum.score) && isFinite(datum.score) && datum.score > 0 && datum.production_countries != null && trim(datum.production_countries) !== ''"
+        }
+      ]
     },
     {
       "name": "world",
@@ -118,7 +125,7 @@
         {
           "type": "formula",
           "as": "country",
-          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country) === 'UK' ? 'United Kingdom' : trim(datum.country) === 'Russia' ? 'Russian Federation' : trim(datum.country)"
+          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country) === 'UK' ? 'United Kingdom' : (trim(datum.country) === 'Russia' || trim(datum.country) === 'Russian Federation') ? 'Russia' : trim(datum.country)"
         },
         {
           "type": "filter",
@@ -127,7 +134,7 @@
         {
           "type": "formula",
           "as": "map_country",
-          "expr": "datum.country === 'United States' ? 'United States of America' : datum.country === 'UK' ? 'United Kingdom' : datum.country === 'Russia' ? 'Russian Federation' : datum.country"
+          "expr": "datum.country === 'United States' ? 'United States of America' : datum.country === 'UK' ? 'United Kingdom' : datum.country === 'Russian Federation' ? 'Russia' : datum.country"
         },
         {
           "type": "aggregate",
