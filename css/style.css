@@ -906,6 +906,30 @@ footer {
 
 #world-timeline text { fill: var(--muted); }
 
+.world-story-note {
+  margin: -12px 0 24px;
+  padding-left: 12px;
+  border-left: 3px solid var(--rust);
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.map-scale-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.chart-reading-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .map-zoom-controls {
   display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
   margin-bottom: 10px; color: var(--ink); font-size: 13px;

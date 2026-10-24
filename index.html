@@ -102,6 +102,25 @@
           </aside>
         </article>
 
+        <article class="visual-row cinema-story">
+          <div class="visual-copy">
+            <h3>Where Genres Meet</h3>
+          </div>
+
+          <div class="visual-card">
+            <div id="vis11" class="visualisation"></div>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="new-story-11">
+            <h4 id="new-story-11">Genres rarely tell a story alone</h4>
+            <p>A film can combine several genres, blending different storytelling traditions within a single production. This network connects types that appear together in the same film, revealing relationships that a ranking alone cannot show.</p>
+            <p><strong class="story-key">Horror + Thriller</strong> co-occur in <strong class="story-highlight">58 films</strong>, followed by <strong class="story-key">Drama + Thriller</strong> with <strong class="story-highlight">55</strong> and <strong class="story-key">Action + Thriller</strong> with <strong class="story-highlight">47</strong>. These combinations show how frequently Thriller accompanies different kinds of stories, linking genres that might otherwise appear separate.</p>
+            <p><strong class="story-key">Larger nodes</strong> represent genres appearing in more films, while <strong class="story-key">thicker links</strong> indicate more shared films. </p>
+            <p class="genre-story-conclusion">Unlike the primary-genre charts, this view uses <strong class="story-key">all available genre tags</strong>, so one film may contribute to several pairs. </p>
+            <p>Hover over a genre to highlight its connections. Adjust the minimum shared-film count to reveal stronger or weaker links.</p>
+          </aside>
+        </article>
+
 
         <article class="visual-row cinema-story">
           <div class="visual-copy">
@@ -177,6 +196,24 @@
           </div>
         </article>
 
+        <article class="visual-row cinema-story story-left">
+          <div class="visual-copy">
+            <h3>Where the Big Box Office Is Concentrated</h3>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="new-story-13">
+            <h4 id="new-story-13">A few large rectangles, a large share of the box office</h4>
+            <p>The default view selects the <strong class="story-highlight">30 highest-grossing films</strong> with positive reported worldwide grosses. They are grouped by <strong class="story-key">primary genre</strong>, with each film’s rectangle sized by its gross.</p>
+            <p><strong class="story-key">The Matrix Reloaded</strong> leads at about <strong class="story-highlight">$738.6 million</strong>, while <strong class="story-key">The Lego Movie</strong> contributes about <strong class="story-highlight">$470.8 million</strong>. Large rectangles reveal how a few films dominate this selection.</p>
+            <p class="genre-story-conclusion">Orange highlights films grossing <strong class="story-highlight">at least $300 million</strong>; blue identifies the remaining films. Areas compare <strong class="story-key">gross revenue, not net profit</strong>, and describe the selected top films rather than every Australian-linked release.</p>
+            <p>Hover to read film details and highlight its genre. Adjust the number of top films to see how the concentration changes.</p>
+          </aside>
+
+          <div class="visual-card">
+            <div id="vis13" class="visualisation"></div>
+          </div>
+        </article>
+
 
         <article class="visual-row cinema-story story-left">
           <div class="visual-copy">
@@ -196,6 +233,8 @@
             <div id="vis6" class="visualisation"></div>
           </div>
         </article>
+
+
 
 
         <article class="visual-row cinema-story story-left">
@@ -249,6 +288,8 @@
           <p id="world-filter-status" class="filter-status-hidden" role="status" aria-live="polite">Loading map filters…</p>
         </div>
 
+        <p class="world-story-note">The accompanying written insights describe the default view (All Genres, 1980–2025). Map values and rankings update dynamically when filters are applied.</p>
+
         <article class="map-block visual-row cinema-story">
           <div class="map-copy">
             <h3>Number of Films by Country</h3>
@@ -276,6 +317,7 @@
 
           <div class="visual-card map-card">
             <div id="vis9" class="visualisation"></div>
+            <p class="map-scale-note">Blue shades use a fixed range based on the default view’s minimum and maximum country averages (All Genres, 1980–2025). Scores outside this range use the lightest or darkest blue; hover to see exact values.</p>
           </div>
 
           <aside class="cinema-story-copy" aria-labelledby="global-ratings-story-title">
@@ -362,6 +404,8 @@
             <p>Vega. (n.d.-d). <em>Projections</em>. <a href="https://vega.github.io/vega/docs/projections/">https://vega.github.io/vega/docs/projections/</a></p>
             <p>Vega. (n.d.-e). <em>Signals</em>. <a href="https://vega.github.io/vega/docs/signals/">https://vega.github.io/vega/docs/signals/</a></p>
             <p>Vega. (n.d.-f). <em>Window transform</em>. <a href="https://vega.github.io/vega/docs/transforms/window/">https://vega.github.io/vega/docs/transforms/window/</a></p>
+            <p>Vega. (n.d.-g). <em>Force transform</em>. <a href="https://vega.github.io/vega/docs/transforms/force/">https://vega.github.io/vega/docs/transforms/force/</a></p>
+            <p>Vega. (n.d.-h). <em>Treemap transform</em>. <a href="https://vega.github.io/vega/docs/transforms/treemap/">https://vega.github.io/vega/docs/transforms/treemap/</a></p>
             <p>Vega-Lite. (n.d.-a). <em>Aggregation</em>. <a href="https://vega.github.io/vega-lite/docs/aggregate.html">https://vega.github.io/vega-lite/docs/aggregate.html</a></p>
             <p>Vega-Lite. (n.d.-b). <em>Dynamic behaviors with parameters</em>. <a href="https://vega.github.io/vega-lite/docs/parameter.html">https://vega.github.io/vega-lite/docs/parameter.html</a></p>
             <p>Vega-Lite. (n.d.-c). <em>Impute</em>. <a href="https://vega.github.io/vega-lite/docs/impute.html">https://vega.github.io/vega-lite/docs/impute.html</a></p>
@@ -405,7 +449,9 @@
       ["vis7",  "js/7_The_Companies_Behind_Australian_Fil.js"],
       ["vis8",  "js/8_Number_of_Films_by_Country.js"],
       ["vis9",  "js/9_Score_of_Films_by_Country.js"],
-      ["vis10", "js/How Australian CinemaConnects to the World.js"]
+      ["vis10", "js/How Australian CinemaConnects to the World.js"],
+      ["vis11", "js/11_Where_Genres_Meet.js"],
+      ["vis13", "js/13_Where_the_Big_Box_Office_Is_Concentrated.js"]
     ];
 
 

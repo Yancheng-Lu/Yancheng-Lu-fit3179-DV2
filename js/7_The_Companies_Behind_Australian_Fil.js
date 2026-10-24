@@ -238,6 +238,11 @@
           "type": "formula",
           "as": "short_name",
           "expr": "datum.company_clean === 'Australian Film Finance Corporation (AFFC)' ? 'Australian Film Finance Corp.' : datum.company_clean === 'Kennedy Miller Productions' ? 'Kennedy Miller' : datum.company_clean === 'Castle Rock Entertainment' ? 'Castle Rock' : datum.company_clean"
+        },
+        {
+          "type": "formula",
+          "as": "label_lines",
+          "expr": "split(trim(replace(datum.company_name, /(.{1,20})(\\s+|$)/g, '$1\\n')), '\\n')"
         }
       ]
     },
@@ -535,16 +540,10 @@
             "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
           },
           "y": {
-            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY - (datum.r * bubbleStretchY * bubbleRadiusGrowth >= 34 ? 10 : 7)"
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY - 8 - (length(datum.label_lines)-1)*(datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 17 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 15 : 13)/2"
           },
           "text": {
-            "signal": "datum.r * bubbleStretchY * bubbleRadiusGrowth >= 23 ? datum.short_name : ''"
-          },
-          "limit": {
-            "signal": "max(0, 2 * datum.r * bubbleStretchY * bubbleRadiusGrowth - 16)"
-          },
-          "ellipsis": {
-            "value": "…"
+            "field": "label_lines"
           },
           "align": {
             "value": "center"
@@ -562,13 +561,26 @@
             "value": "bold"
           },
           "fill": {
-            "signal": "datum.median_score >= 6.3 ? '#FFFFFF' : '#173A53'"
+            "value": "white"
           },
           "opacity": {
             "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.6"
+          },
+          "stroke": {
+            "value": "white"
+          },
+          "strokeWidth": {
+            "value": 3
+          },
+          "strokeJoin": {
+            "value": "round"
+          },
+          "lineHeight": {
+            "signal": "(datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 17 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 15 : 13)"
           }
         }
-      }
+      },
+      "name": "companyNameHalo"
     },
     {
       "type": "text",
@@ -582,10 +594,55 @@
             "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
           },
           "y": {
-            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY + (datum.r * bubbleStretchY * bubbleRadiusGrowth >= 34 ? 14 : 10)"
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY - 8 - (length(datum.label_lines)-1)*(datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 17 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 15 : 13)/2"
           },
           "text": {
-            "signal": "datum.r * bubbleStretchY * bubbleRadiusGrowth >= 20 ? datum.film_count + ' films' : ''"
+            "field": "label_lines"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "font": {
+            "value": "Arial"
+          },
+          "fontSize": {
+            "signal": "datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 14 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 12 : 10"
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "fill": {
+            "value": "#142d42"
+          },
+          "opacity": {
+            "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.6"
+          },
+          "lineHeight": {
+            "signal": "(datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 17 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 15 : 13)"
+          }
+        }
+      },
+      "name": "companyNameLabels"
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
+          },
+          "y": {
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY + length(datum.label_lines)*(datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 17 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 15 : 13)/2 + 8"
+          },
+          "text": {
+            "signal": "datum.film_count + ' films'"
           },
           "align": {
             "value": "center"
@@ -600,13 +657,62 @@
             "value": 11
           },
           "fill": {
-            "signal": "datum.median_score >= 6.3 ? '#FFFFFF' : '#173A53'"
+            "value": "white"
+          },
+          "opacity": {
+            "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.6"
+          },
+          "stroke": {
+            "value": "white"
+          },
+          "strokeWidth": {
+            "value": 2.5
+          },
+          "strokeJoin": {
+            "value": "round"
+          }
+        }
+      },
+      "name": "companyCountHalo"
+    },
+    {
+      "type": "text",
+      "interactive": false,
+      "from": {
+        "data": "leaves"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
+          },
+          "y": {
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY + length(datum.label_lines)*(datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 17 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 15 : 13)/2 + 8"
+          },
+          "text": {
+            "signal": "datum.film_count + ' films'"
+          },
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "font": {
+            "value": "Arial"
+          },
+          "fontSize": {
+            "value": 11
+          },
+          "fill": {
+            "value": "#142d42"
           },
           "opacity": {
             "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.6"
           }
         }
-      }
+      },
+      "name": "companyCountLabels"
     },
     {
       "type": "text",

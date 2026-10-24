@@ -229,8 +229,102 @@
       ]
     },
     {
+      "name": "baselineCountryScores",
+      "transform": [
+        {
+          "type": "filter",
+          "expr": "datum.year >= 1980 && datum.year <= 2025 && isValid(datum.score) && isFinite(datum.score) && datum.score > 0 && datum.production_countries != null && datum.production_countries !== ''"
+        },
+        {
+          "type": "formula",
+          "as": "film_id",
+          "expr": "isValid(datum.tmdb_id) && trim(toString(datum.tmdb_id)) !== '' && isFinite(toNumber(datum.tmdb_id)) && toNumber(datum.tmdb_id) > 0 ? 'tmdb:' + toString(toNumber(datum.tmdb_id)) : 'legacy:' + lower(trim(datum.name || '')) + '|' + toString(datum.year) + '|' + lower(trim(datum.director || ''))"
+        },
+        {
+          "type": "formula",
+          "as": "country_list",
+          "expr": "split(datum.production_countries, '|')"
+        },
+        {
+          "type": "flatten",
+          "fields": [
+            "country_list"
+          ],
+          "as": [
+            "country"
+          ]
+        },
+        {
+          "type": "formula",
+          "as": "country",
+          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country) === 'UK' ? 'United Kingdom' : (trim(datum.country) === 'Russia' || trim(datum.country) === 'Russian Federation') ? 'Russia' : trim(datum.country)"
+        },
+        {
+          "type": "filter",
+          "expr": "datum.country != null && datum.country !== ''"
+        },
+        {
+          "type": "formula",
+          "as": "map_country",
+          "expr": "datum.country === 'United States' ? 'United States of America' : datum.country === 'UK' ? 'United Kingdom' : datum.country === 'Russian Federation' ? 'Russia' : datum.country"
+        },
+        {
+          "type": "aggregate",
+          "groupby": [
+            "film_id",
+            "country",
+            "map_country"
+          ],
+          "ops": [
+            "mean"
+          ],
+          "fields": [
+            "score"
+          ],
+          "as": [
+            "film_score"
+          ]
+        },
+        {
+          "type": "aggregate",
+          "groupby": [
+            "country",
+            "map_country"
+          ],
+          "ops": [
+            "mean",
+            "count"
+          ],
+          "fields": [
+            "film_score",
+            null
+          ],
+          "as": [
+            "average_score",
+            "film_count"
+          ]
+        },
+        {
+          "type": "lookup",
+          "from": "world",
+          "key": "properties.NAME",
+          "fields": [
+            "map_country"
+          ],
+          "as": [
+            "geo"
+          ]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.geo != null"
+        }
+      ],
+      "source": "movies"
+    },
+    {
       "name": "scoreExtent",
-      "source": "countryScores",
+      "source": "baselineCountryScores",
       "transform": [
         {
           "type": "aggregate",
@@ -255,7 +349,7 @@
       "name": "scoreColor",
       "type": "linear",
       "domain": {
-        "data": "countryScores",
+        "data": "baselineCountryScores",
         "field": "average_score"
       },
       "range": {
@@ -269,7 +363,7 @@
   "legends": [
     {
       "fill": "scoreColor",
-      "title": "Average Score (min–max)",
+      "title": "Average Score (fixed range)",
       "orient": "right",
       "gradientLength": 160,
       "gradientThickness": 12,
