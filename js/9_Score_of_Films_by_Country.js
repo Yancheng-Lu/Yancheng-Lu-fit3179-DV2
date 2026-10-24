@@ -94,7 +94,12 @@
         },
         {
           "type": "filter",
-          "expr": "datum.year >= 1980 && datum.year <= 2025 && datum.score > 0 && datum.production_countries != null && datum.production_countries !== ''"
+          "expr": "datum.year >= 1980 && datum.year <= 2025 && isValid(datum.score) && isFinite(datum.score) && datum.score > 0 && datum.production_countries != null && datum.production_countries !== ''"
+        },
+        {
+          "type": "formula",
+          "as": "film_id",
+          "expr": "isValid(datum.tmdb_id) && trim(toString(datum.tmdb_id)) !== '' && isFinite(toNumber(datum.tmdb_id)) && toNumber(datum.tmdb_id) > 0 ? 'tmdb:' + toString(toNumber(datum.tmdb_id)) : 'legacy:' + lower(trim(datum.name || '')) + '|' + toString(datum.year) + '|' + lower(trim(datum.director || ''))"
         },
         {
           "type": "formula",
@@ -113,7 +118,7 @@
         {
           "type": "formula",
           "as": "country",
-          "expr": "trim(datum.country)"
+          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country) === 'UK' ? 'United Kingdom' : trim(datum.country) === 'Russia' ? 'Russian Federation' : trim(datum.country)"
         },
         {
           "type": "filter",
@@ -127,6 +132,23 @@
         {
           "type": "aggregate",
           "groupby": [
+            "film_id",
+            "country",
+            "map_country"
+          ],
+          "ops": [
+            "mean"
+          ],
+          "fields": [
+            "score"
+          ],
+          "as": [
+            "film_score"
+          ]
+        },
+        {
+          "type": "aggregate",
+          "groupby": [
             "country",
             "map_country"
           ],
@@ -135,8 +157,8 @@
             "count"
           ],
           "fields": [
-            "score",
-            "name"
+            "film_score",
+            null
           ],
           "as": [
             "average_score",
@@ -198,6 +220,27 @@
           "expr": "datum.country === 'Australia'"
         }
       ]
+    },
+    {
+      "name": "scoreExtent",
+      "source": "countryScores",
+      "transform": [
+        {
+          "type": "aggregate",
+          "fields": [
+            "average_score",
+            "average_score"
+          ],
+          "ops": [
+            "min",
+            "max"
+          ],
+          "as": [
+            "min_score",
+            "max_score"
+          ]
+        }
+      ]
     }
   ],
   "scales": [
@@ -212,13 +255,14 @@
         "scheme": "blues"
       },
       "zero": false,
-      "nice": true
+      "nice": false,
+      "clamp": true
     }
   ],
   "legends": [
     {
       "fill": "scoreColor",
-      "title": "Average Score",
+      "title": "Average Score (min–max)",
       "orient": "right",
       "gradientLength": 160,
       "gradientThickness": 12,
@@ -228,8 +272,11 @@
       "labelFont": "Arial",
       "labelFontSize": 10,
       "labelColor": "#66717A",
-      "format": ".1f",
-      "offset": 18
+      "format": ".2f",
+      "offset": 18,
+      "values": {
+        "signal": "length(data('scoreExtent')) && isValid(data('scoreExtent')[0].min_score) && isValid(data('scoreExtent')[0].max_score) ? (data('scoreExtent')[0].min_score === data('scoreExtent')[0].max_score ? [data('scoreExtent')[0].min_score] : [data('scoreExtent')[0].min_score, (data('scoreExtent')[0].min_score + data('scoreExtent')[0].max_score) / 2, data('scoreExtent')[0].max_score]) : []"
+      }
     }
   ],
   "marks": [
@@ -262,7 +309,7 @@
       "name": "scoreShapes",
       "type": "shape",
       "from": {
-        "data": "countryScores"
+        "data": "rankedScores"
       },
       "transform": [
         {
@@ -394,5 +441,6 @@
         }
       }
     }
-  ]
+  ],
+  "description": "Normalize country aliases and deduplicate film_id + country before country averages. Duplicate scores are averaged per film-country; each film then contributes once. Missing TMDB IDs use normalized title, year and director. Shapes use rankedScores so hover tooltips include score_rank."
 }

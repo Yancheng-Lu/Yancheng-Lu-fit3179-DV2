@@ -98,6 +98,11 @@
         },
         {
           "type": "formula",
+          "as": "film_id",
+          "expr": "isValid(datum.tmdb_id) && trim(toString(datum.tmdb_id)) !== '' && isFinite(toNumber(datum.tmdb_id)) && toNumber(datum.tmdb_id) > 0 ? 'tmdb:' + toString(toNumber(datum.tmdb_id)) : 'legacy:' + lower(trim(datum.name || '')) + '|' + toString(datum.year) + '|' + lower(trim(datum.director || ''))"
+        },
+        {
+          "type": "formula",
           "as": "country_list",
           "expr": "split(datum.production_countries, '|')"
         },
@@ -113,7 +118,7 @@
         {
           "type": "formula",
           "as": "country",
-          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country)"
+          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country) === 'UK' ? 'United Kingdom' : trim(datum.country) === 'Russia' ? 'Russian Federation' : trim(datum.country)"
         },
         {
           "type": "filter",
@@ -127,6 +132,14 @@
         {
           "type": "aggregate",
           "groupby": [
+            "film_id",
+            "country",
+            "map_country"
+          ]
+        },
+        {
+          "type": "aggregate",
+          "groupby": [
             "country",
             "map_country"
           ],
@@ -134,7 +147,7 @@
             "count"
           ],
           "fields": [
-            "name"
+            null
           ],
           "as": [
             "film_count"
@@ -224,7 +237,9 @@
         "data": "countryCounts",
         "field": "film_count"
       },
-      "range": { "signal": "[3 * mapZoom, 75 * mapZoom]" },
+      "range": {
+        "signal": "[3 * mapZoom, 75 * mapZoom]"
+      },
       "zero": true,
       "nice": true
     }
@@ -407,7 +422,6 @@
         }
       }
     },
-
     {
       "type": "rect",
       "encode": {
@@ -579,5 +593,6 @@
         }
       }
     }
-  ]
+  ],
+  "description": "Country film counts: normalize country aliases, deduplicate film_id + country, then count. Use tmdb_id when valid; missing IDs fall back to normalized title, year and director. Co-productions count once per country."
 }

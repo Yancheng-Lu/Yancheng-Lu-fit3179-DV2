@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "Room-filling packed bubble chart of companies associated with Australian-linked films. Bubble area encodes film count, colour encodes median audience score. Responsive extent-based positioning, a minimum-film slider, and time brushing.",
   "width": 960,
-  "height": 400,
+  "height": 680,
   "padding": {
     "top": 16,
     "left": 8,
