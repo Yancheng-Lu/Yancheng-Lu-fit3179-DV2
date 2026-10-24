@@ -325,6 +325,39 @@
       }
     },
     {
+      "name": "australiaAnnotationLeader",
+      "type": "rule",
+      "from": {
+        "data": "australia"
+      },
+      "interactive": false,
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "datum.centroid[0] - 24"
+          },
+          "y": {
+            "signal": "datum.centroid[1] + 20"
+          },
+          "x2": {
+            "signal": "datum.centroid[0] - 80"
+          },
+          "y2": {
+            "signal": "datum.centroid[1] + 55"
+          },
+          "stroke": {
+            "value": "#17365D"
+          },
+          "strokeWidth": {
+            "value": 1
+          },
+          "strokeOpacity": {
+            "value": 0.65
+          }
+        }
+      }
+    },
+    {
       "type": "text",
       "from": {
         "data": "australia"
@@ -332,25 +365,19 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "datum.centroid[0]"
+            "signal": "datum.centroid[0] - 85"
           },
           "y": {
-            "signal": "datum.centroid[1]"
-          },
-          "dx": {
-            "value": 12
-          },
-          "dy": {
-            "value": 14
+            "signal": "datum.centroid[1] + 55"
           },
           "text": {
             "signal": "'Australia · Avg ' + format(datum.average_score, '.2f') + ' · Rank #' + datum.score_rank + ' · ' + datum.film_count + ' films'"
           },
           "align": {
-            "value": "left"
+            "value": "right"
           },
           "baseline": {
-            "value": "top"
+            "value": "middle"
           },
           "font": {
             "value": "Arial"
