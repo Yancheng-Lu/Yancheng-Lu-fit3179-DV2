@@ -6,8 +6,6 @@ function initialiseWorldFilters(views) {
     return;
   }
   const genre = document.getElementById('world-genre');
-  const start = document.getElementById('world-year-start');
-  const end = document.getElementById('world-year-end');
   const timeline = document.getElementById('world-timeline');
   // Validate the map/filter contract before enabling any controls.
   for (const [id, view] of views) {
@@ -41,22 +39,19 @@ function initialiseWorldFilters(views) {
           (state.genre === 'All genres' || genresOf(row).includes(state.genre))) counts[year - 1980]++;
     });
     const max = Math.max(1, ...counts);
-    element('text', {x: 20, y: 15, fill: '#65717a', 'font-size': 12}, 'Films by release year · drag to brush');
     counts.forEach((count, i) => element('rect', {
-      x: 20 + i * step + 1, y: 99 - 65 * count / max,
-      width: step - 2, height: 65 * count / max, fill: '#6387a0'
+      x: 20 + i * step + 1, y: 35 - 27 * count / max,
+      width: step - 2, height: 27 * count / max, fill: '#6387a0'
     }));
-    selection = element('rect', {y: 27, height: 74, fill: '#bd684e', 'fill-opacity': 0.2, stroke: '#bd684e', 'pointer-events': 'none'});
+    selection = element('rect', {y: 5, height: 32, fill: '#bd684e', 'fill-opacity': 0.2, stroke: '#bd684e', 'pointer-events': 'none'});
     for (const year of [1980, 1990, 2000, 2010, 2020, 2025]) {
-      element('text', {x: 20 + (year - 1980 + 0.5) * step, y: 122, 'text-anchor': 'middle', fill: '#162633', 'font-size': 12}, year);
+      element('text', {x: 20 + (year - 1980 + 0.5) * step, y: 53, 'text-anchor': 'middle', fill: '#162633', 'font-size': 12}, year);
     }
     updateSelection();
   }
   function updateSelection() {
     selection.setAttribute('x', 20 + (state.start - 1980) * step);
     selection.setAttribute('width', (state.end - state.start + 1) * step);
-    start.value = state.start;
-    end.value = state.end;
   }
   // Serialize updates so rapid pointer movement cannot leave a map on an old range.
   async function updateViews() {
@@ -82,16 +77,6 @@ function initialiseWorldFilters(views) {
   }
   function apply() { updateSelection(); updateViews(); }
   genre.addEventListener('change', () => { state.genre = genre.value; drawTimeline(); updateViews(); });
-  function changeYear(event) {
-    const value = event.target.valueAsNumber;
-    if (!Number.isFinite(value)) { updateSelection(); return; }
-    const year = Math.max(1980, Math.min(2025, Math.round(value)));
-    if (event.target === start) { state.start = year; state.end = Math.max(year, state.end); }
-    else { state.end = year; state.start = Math.min(year, state.start); }
-    apply();
-  }
-  start.addEventListener('change', changeYear);
-  end.addEventListener('change', changeYear);
   function pointerYear(event) {
     const point = new DOMPoint(event.clientX, event.clientY).matrixTransform(timeline.getScreenCTM().inverse());
     return Math.max(1980, Math.min(2025, 1980 + Math.floor((point.x - 20) / step)));

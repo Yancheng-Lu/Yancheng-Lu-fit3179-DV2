@@ -2,22 +2,10 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 
   "width": 700,
-  "height": 430,
+  "height": 380,
 
   "background": "white",
 
-  "title": {
-    "text": "Genres Rise, Fall and Return",
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 22,
-    "fontWeight": "bold",
-    "color": "#3D3A36",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 12,
-    "subtitleColor": "#6F6A63",
-    "offset": 16
-  },
 
   "data": {
     "url": "https://raw.githubusercontent.com/Yancheng-Lu/fit3179-australian-movies/refs/heads/main/data/movies_combined_1980_2025.csv"
@@ -291,6 +279,11 @@
     },
 
     "legend": {
+      "layout": {
+        "bottom": {
+          "margin": 40
+        }
+      },
       "labelColor": "#55514C",
       "titleColor": "#55514C"
     }

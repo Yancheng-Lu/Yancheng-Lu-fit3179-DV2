@@ -7,14 +7,6 @@
 
   "background": "white",
 
-  "title": {
-    "text": "Did Audiences Think the Films Got Better?",
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 21,
-    "color": "#1F2D3D",
-    "offset": 15
-  },
 
   "data": {
     "url": "https://raw.githubusercontent.com/Yancheng-Lu/fit3179-australian-movies/refs/heads/main/data/movies_combined_1980_2025.csv"

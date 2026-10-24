@@ -1,27 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
-  "description": "Corrected Vega treemap with company-count slider and interactive year brush. Leaf node fields are used directly after nest/treemap.",
+  "description": "Room-filling packed bubble chart of companies associated with Australian-linked films. Bubble area encodes film count, colour encodes median audience score. Responsive extent-based positioning, a minimum-film slider, and time brushing.",
   "width": 960,
-  "height": 645,
+  "height": 400,
   "padding": {
-    "top": 66,
-    "left": 16,
-    "right": 16,
-    "bottom": 15
+    "top": 16,
+    "left": 8,
+    "right": 8,
+    "bottom": 12
   },
   "background": "white",
-  "title": {
-    "text": "The Companies Behind Australian Film",
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 23,
-    "fontWeight": "bold",
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 12,
-    "subtitleColor": "#657586",
-    "offset": 16
-  },
   "signals": [
     {
       "name": "minFilms",
@@ -35,20 +23,36 @@
       }
     },
     {
-      "name": "treeTop",
+      "name": "bubbleTop",
       "value": 53
     },
     {
-      "name": "treeHeight",
-      "value": 430
+      "name": "bubbleHeight",
+      "value": 500
+    },
+    {
+      "name": "bubbleCenterX",
+      "update": "length(data('bubbleExtents')) ? (data('bubbleExtents')[0].min_x + data('bubbleExtents')[0].max_x)/2 : (width-36)/2"
+    },
+    {
+      "name": "bubbleCenterY",
+      "update": "length(data('bubbleExtents')) ? (data('bubbleExtents')[0].min_y + data('bubbleExtents')[0].max_y)/2 : bubbleHeight/2"
+    },
+    {
+      "name": "bubbleStretchY",
+      "update": "length(data('bubbleExtents')) ? min(1.12, (bubbleHeight - 24) / max(1, data('bubbleExtents')[0].max_y - data('bubbleExtents')[0].min_y)) : 1"
+    },
+    {
+      "name": "bubbleStretchX",
+      "update": "length(data('bubbleExtents')) ? max(bubbleStretchY, min(2.6, (width - 100) / max(1, data('bubbleExtents')[0].max_x - data('bubbleExtents')[0].min_x))) : 1"
     },
     {
       "name": "overviewTop",
-      "value": 529
+      "value": 574
     },
     {
       "name": "overviewBottom",
-      "value": 595
+      "value": 640
     },
     {
       "name": "brush",
@@ -84,14 +88,18 @@
       "value": null,
       "on": [
         {
-          "events": "@companyTiles:mouseover",
+          "events": "@companyBubbles:mouseover",
           "update": "datum.company_name"
         },
         {
-          "events": "@companyTiles:mouseout",
+          "events": "@companyBubbles:mouseout",
           "update": "null"
         }
       ]
+    },
+    {
+      "name": "bubbleRadiusGrowth",
+      "update": "max(1,min(1.7,length(data('bubblePairLimits')) && isValid(data('bubblePairLimits')[0].limit) ? data('bubblePairLimits')[0].limit : 1.7,length(data('bubbleEdgeLimits')) && isValid(data('bubbleEdgeLimits')[0].limit) ? data('bubbleEdgeLimits')[0].limit : 1.7))"
     }
   ],
   "data": [
@@ -192,26 +200,22 @@
       ]
     },
     {
-      "name": "tree",
+      "name": "packed",
       "source": "companySummary",
       "transform": [
         {
           "type": "nest"
         },
         {
-          "type": "treemap",
+          "type": "pack",
           "field": "film_count",
-          "method": "squarify",
-          "ratio": 1.35,
-          "round": true,
-          "paddingInner": 4,
-          "paddingOuter": 2,
+          "padding": 6,
           "size": [
             {
               "signal": "width - 36"
             },
             {
-              "signal": "treeHeight"
+              "signal": "bubbleHeight"
             }
           ]
         }
@@ -219,7 +223,7 @@
     },
     {
       "name": "leaves",
-      "source": "tree",
+      "source": "packed",
       "transform": [
         {
           "type": "filter",
@@ -234,6 +238,53 @@
           "type": "formula",
           "as": "short_name",
           "expr": "datum.company_clean === 'Australian Film Finance Corporation (AFFC)' ? 'Australian Film Finance Corp.' : datum.company_clean === 'Kennedy Miller Productions' ? 'Kennedy Miller' : datum.company_clean === 'Castle Rock Entertainment' ? 'Castle Rock' : datum.company_clean"
+        }
+      ]
+    },
+    {
+      "name": "bubbleExtents",
+      "source": "leaves",
+      "transform": [
+        {
+          "type": "formula",
+          "as": "edge_left",
+          "expr": "datum.x - datum.r"
+        },
+        {
+          "type": "formula",
+          "as": "edge_right",
+          "expr": "datum.x + datum.r"
+        },
+        {
+          "type": "formula",
+          "as": "edge_top",
+          "expr": "datum.y - datum.r"
+        },
+        {
+          "type": "formula",
+          "as": "edge_bottom",
+          "expr": "datum.y + datum.r"
+        },
+        {
+          "type": "aggregate",
+          "fields": [
+            "edge_left",
+            "edge_right",
+            "edge_top",
+            "edge_bottom"
+          ],
+          "ops": [
+            "min",
+            "max",
+            "min",
+            "max"
+          ],
+          "as": [
+            "min_x",
+            "max_x",
+            "min_y",
+            "max_y"
+          ]
         }
       ]
     },
@@ -257,6 +308,64 @@
         },
         {
           "year": 2025
+        }
+      ]
+    },
+    {
+      "name": "bubblePairLimits",
+      "source": "leaves",
+      "transform": [
+        {
+          "type": "cross",
+          "with": "leaves",
+          "as": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "type": "filter",
+          "expr": "datum.a.company_clean < datum.b.company_clean"
+        },
+        {
+          "type": "formula",
+          "as": "limit",
+          "expr": "(sqrt(pow((datum.a.x-datum.b.x)*bubbleStretchX,2)+pow((datum.a.y-datum.b.y)*bubbleStretchY,2))-2)/max(1,(datum.a.r+datum.b.r)*bubbleStretchY)"
+        },
+        {
+          "type": "aggregate",
+          "fields": [
+            "limit"
+          ],
+          "ops": [
+            "min"
+          ],
+          "as": [
+            "limit"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bubbleEdgeLimits",
+      "source": "leaves",
+      "transform": [
+        {
+          "type": "formula",
+          "as": "limit",
+          "expr": "min((width/2+(datum.x-bubbleCenterX)*bubbleStretchX-18)/max(1,datum.r*bubbleStretchY),(width-18-width/2-(datum.x-bubbleCenterX)*bubbleStretchX)/max(1,datum.r*bubbleStretchY),(bubbleHeight/2+(datum.y-bubbleCenterY)*bubbleStretchY-4)/max(1,datum.r*bubbleStretchY),(bubbleHeight-20-bubbleHeight/2-(datum.y-bubbleCenterY)*bubbleStretchY)/max(1,datum.r*bubbleStretchY))"
+        },
+        {
+          "type": "aggregate",
+          "fields": [
+            "limit"
+          ],
+          "ops": [
+            "min"
+          ],
+          "as": [
+            "limit"
+          ]
         }
       ]
     }
@@ -353,16 +462,16 @@
             "value": 17
           },
           "y": {
-            "signal": "treeTop"
+            "signal": "bubbleTop"
           },
           "width": {
             "signal": "width - 34"
           },
           "height": {
-            "signal": "treeHeight"
+            "signal": "bubbleHeight"
           },
           "fill": {
-            "value": "#EDF3F7"
+            "value": "#F5F8FA"
           },
           "cornerRadius": {
             "value": 6
@@ -371,8 +480,8 @@
       }
     },
     {
-      "name": "companyTiles",
-      "type": "rect",
+      "name": "companyBubbles",
+      "type": "symbol",
       "from": {
         "data": "leaves"
       },
@@ -384,16 +493,16 @@
         },
         "update": {
           "x": {
-            "signal": "17 + datum.x0"
+            "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
           },
           "y": {
-            "signal": "treeTop + datum.y0"
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY"
           },
-          "x2": {
-            "signal": "17 + datum.x1"
+          "shape": {
+            "value": "circle"
           },
-          "y2": {
-            "signal": "treeTop + datum.y1"
+          "size": {
+            "signal": "PI * pow(datum.r * bubbleStretchY * bubbleRadiusGrowth, 2)"
           },
           "fill": {
             "scale": "scoreColor",
@@ -403,10 +512,10 @@
             "signal": "hoverCompany === datum.company_name ? '#D46A4C' : '#FFFFFF'"
           },
           "strokeWidth": {
-            "signal": "hoverCompany === datum.company_name ? 3 : 1.6"
+            "signal": "hoverCompany === datum.company_name ? 3.5 : 2"
           },
           "fillOpacity": {
-            "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.78"
+            "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.55"
           },
           "tooltip": {
             "signal": "{'Company':datum.company_name,'Number of Films':datum.film_count,'Median Audience Score':format(datum.median_score,'.2f')}"
@@ -423,16 +532,16 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "17 + (datum.x0 + datum.x1)/2"
+            "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
           },
           "y": {
-            "signal": "treeTop + (datum.y0+datum.y1)/2 - 9"
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY - (datum.r * bubbleStretchY * bubbleRadiusGrowth >= 34 ? 10 : 7)"
           },
           "text": {
-            "signal": "datum.x1 - datum.x0 >= 99 && datum.y1 - datum.y0 >= 46 ? datum.short_name : ''"
+            "signal": "datum.r * bubbleStretchY * bubbleRadiusGrowth >= 23 ? datum.short_name : ''"
           },
           "limit": {
-            "signal": "max(0,datum.x1-datum.x0-12)"
+            "signal": "max(0, 2 * datum.r * bubbleStretchY * bubbleRadiusGrowth - 16)"
           },
           "ellipsis": {
             "value": "…"
@@ -447,13 +556,16 @@
             "value": "Arial"
           },
           "fontSize": {
-            "signal": "datum.x1-datum.x0 >= 180 ? 13 : 11"
+            "signal": "datum.r * bubbleStretchY * bubbleRadiusGrowth >= 73 ? 14 : datum.r * bubbleStretchY * bubbleRadiusGrowth >= 43 ? 12 : 10"
           },
           "fontWeight": {
             "value": "bold"
           },
           "fill": {
             "signal": "datum.median_score >= 6.3 ? '#FFFFFF' : '#173A53'"
+          },
+          "opacity": {
+            "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.6"
           }
         }
       }
@@ -467,13 +579,13 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "17 + (datum.x0+datum.x1)/2"
+            "signal": "width/2 + (datum.x - bubbleCenterX) * bubbleStretchX"
           },
           "y": {
-            "signal": "treeTop + (datum.y0+datum.y1)/2 + 12"
+            "signal": "bubbleTop + bubbleHeight/2 + (datum.y - bubbleCenterY) * bubbleStretchY + (datum.r * bubbleStretchY * bubbleRadiusGrowth >= 34 ? 14 : 10)"
           },
           "text": {
-            "signal": "datum.x1-datum.x0 >= 67 && datum.y1-datum.y0 >= 35 ? datum.film_count + ' films' : ''"
+            "signal": "datum.r * bubbleStretchY * bubbleRadiusGrowth >= 20 ? datum.film_count + ' films' : ''"
           },
           "align": {
             "value": "center"
@@ -489,6 +601,9 @@
           },
           "fill": {
             "signal": "datum.median_score >= 6.3 ? '#FFFFFF' : '#173A53'"
+          },
+          "opacity": {
+            "signal": "hoverCompany === null || hoverCompany === datum.company_name ? 1 : 0.6"
           }
         }
       }
@@ -501,7 +616,7 @@
             "signal": "width/2"
           },
           "y": {
-            "signal": "treeTop + treeHeight/2"
+            "signal": "bubbleTop + bubbleHeight/2"
           },
           "text": {
             "signal": "length(data('companySummary')) === 0 ? 'No companies meet this minimum in the selected years' : ''"
@@ -523,25 +638,29 @@
     },
     {
       "type": "text",
+      "interactive": false,
       "encode": {
         "update": {
           "x": {
-            "value": 18
+            "signal": "width-22"
           },
           "y": {
-            "value": 511
+            "signal": "bubbleTop+bubbleHeight-12"
           },
           "text": {
-            "value": "RELEASE YEARS  ·  DRAG TO BRUSH  ·  DOUBLE-CLICK TO RESET"
+            "value": "Bubble area = film count  ·  Colour = median audience score"
+          },
+          "align": {
+            "value": "right"
           },
           "font": {
             "value": "Arial"
           },
           "fontSize": {
-            "value": 11
+            "value": 10
           },
-          "fontWeight": {
-            "value": "bold"
+          "fontStyle": {
+            "value": "italic"
           },
           "fill": {
             "value": "#64748B"
@@ -721,7 +840,7 @@
             "signal": "18 + (datum.year - 1980) * 924 / 46"
           },
           "y": {
-            "value": 614
+            "value": 659
           },
           "text": {
             "field": "year"
@@ -741,6 +860,5 @@
         }
       }
     }
-
   ]
 }

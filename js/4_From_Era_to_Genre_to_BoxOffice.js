@@ -1,27 +1,14 @@
-
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 1110,
   "height": 575,
   "padding": {
-    "top": 40,
-    "left": 20,
-    "right": 30,
-    "bottom": 42
+    "top": 10,
+    "left": 8,
+    "right": 8,
+    "bottom": 10
   },
   "background": "white",
-  "title": {
-    "text": "From Era to Genre to Box Office",
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 24,
-    "fontWeight": "bold",
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 12,
-    "subtitleColor": "#687684",
-    "offset": 16
-  },
   "signals": [
     {
       "name": "hoverGenre",
@@ -94,10 +81,18 @@
       "transform": [
         {
           "type": "aggregate",
-          "groupby": ["decade"],
-          "ops": ["count"],
-          "fields": ["name"],
-          "as": ["value"]
+          "groupby": [
+            "decade"
+          ],
+          "ops": [
+            "count"
+          ],
+          "fields": [
+            "name"
+          ],
+          "as": [
+            "value"
+          ]
         },
         {
           "type": "formula",
@@ -112,7 +107,10 @@
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["y0", "y1"]
+          "as": [
+            "y0",
+            "y1"
+          ]
         }
       ]
     },
@@ -122,10 +120,18 @@
       "transform": [
         {
           "type": "aggregate",
-          "groupby": ["genre_group"],
-          "ops": ["count"],
-          "fields": ["name"],
-          "as": ["value"]
+          "groupby": [
+            "genre_group"
+          ],
+          "ops": [
+            "count"
+          ],
+          "fields": [
+            "name"
+          ],
+          "as": [
+            "value"
+          ]
         },
         {
           "type": "formula",
@@ -140,7 +146,10 @@
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["y0", "y1"]
+          "as": [
+            "y0",
+            "y1"
+          ]
         }
       ]
     },
@@ -150,10 +159,18 @@
       "transform": [
         {
           "type": "aggregate",
-          "groupby": ["box_office_tier"],
-          "ops": ["count"],
-          "fields": ["name"],
-          "as": ["value"]
+          "groupby": [
+            "box_office_tier"
+          ],
+          "ops": [
+            "count"
+          ],
+          "fields": [
+            "name"
+          ],
+          "as": [
+            "value"
+          ]
         },
         {
           "type": "formula",
@@ -168,7 +185,10 @@
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["y0", "y1"]
+          "as": [
+            "y0",
+            "y1"
+          ]
         }
       ]
     },
@@ -178,10 +198,19 @@
       "transform": [
         {
           "type": "aggregate",
-          "groupby": ["decade", "genre_group"],
-          "ops": ["count"],
-          "fields": ["name"],
-          "as": ["value"]
+          "groupby": [
+            "decade",
+            "genre_group"
+          ],
+          "ops": [
+            "count"
+          ],
+          "fields": [
+            "name"
+          ],
+          "as": [
+            "value"
+          ]
         },
         {
           "type": "formula",
@@ -206,21 +235,30 @@
       "transform": [
         {
           "type": "stack",
-          "groupby": ["genre_group"],
+          "groupby": [
+            "genre_group"
+          ],
           "field": "value",
           "sort": {
             "field": "decade_order",
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["local0", "local1"]
+          "as": [
+            "local0",
+            "local1"
+          ]
         },
         {
           "type": "lookup",
           "from": "nodes_genre",
           "key": "genre_group",
-          "fields": ["genre_group"],
-          "as": ["node"]
+          "fields": [
+            "genre_group"
+          ],
+          "as": [
+            "node"
+          ]
         },
         {
           "type": "formula",
@@ -240,28 +278,41 @@
       "transform": [
         {
           "type": "stack",
-          "groupby": ["decade"],
+          "groupby": [
+            "decade"
+          ],
           "field": "value",
           "sort": {
             "field": "genre_order",
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["local0", "local1"]
+          "as": [
+            "local0",
+            "local1"
+          ]
         },
         {
           "type": "lookup",
           "from": "nodes_era",
           "key": "decade",
-          "fields": ["decade"],
-          "as": ["node"]
+          "fields": [
+            "decade"
+          ],
+          "as": [
+            "node"
+          ]
         },
         {
           "type": "lookup",
           "from": "links_era_genre_target",
           "key": "link_key",
-          "fields": ["link_key"],
-          "as": ["target"]
+          "fields": [
+            "link_key"
+          ],
+          "as": [
+            "target"
+          ]
         },
         {
           "type": "formula",
@@ -281,10 +332,19 @@
       "transform": [
         {
           "type": "aggregate",
-          "groupby": ["genre_group", "box_office_tier"],
-          "ops": ["count"],
-          "fields": ["name"],
-          "as": ["value"]
+          "groupby": [
+            "genre_group",
+            "box_office_tier"
+          ],
+          "ops": [
+            "count"
+          ],
+          "fields": [
+            "name"
+          ],
+          "as": [
+            "value"
+          ]
         },
         {
           "type": "formula",
@@ -309,21 +369,30 @@
       "transform": [
         {
           "type": "stack",
-          "groupby": ["box_office_tier"],
+          "groupby": [
+            "box_office_tier"
+          ],
           "field": "value",
           "sort": {
             "field": "genre_order",
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["local0", "local1"]
+          "as": [
+            "local0",
+            "local1"
+          ]
         },
         {
           "type": "lookup",
           "from": "nodes_box",
           "key": "box_office_tier",
-          "fields": ["box_office_tier"],
-          "as": ["node"]
+          "fields": [
+            "box_office_tier"
+          ],
+          "as": [
+            "node"
+          ]
         },
         {
           "type": "formula",
@@ -343,28 +412,41 @@
       "transform": [
         {
           "type": "stack",
-          "groupby": ["genre_group"],
+          "groupby": [
+            "genre_group"
+          ],
           "field": "value",
           "sort": {
             "field": "box_order",
             "order": "ascending"
           },
           "offset": "normalize",
-          "as": ["local0", "local1"]
+          "as": [
+            "local0",
+            "local1"
+          ]
         },
         {
           "type": "lookup",
           "from": "nodes_genre",
           "key": "genre_group",
-          "fields": ["genre_group"],
-          "as": ["node"]
+          "fields": [
+            "genre_group"
+          ],
+          "as": [
+            "node"
+          ]
         },
         {
           "type": "lookup",
           "from": "links_genre_box_target",
           "key": "link_key",
-          "fields": ["link_key"],
-          "as": ["target"]
+          "fields": [
+            "link_key"
+          ],
+          "as": [
+            "target"
+          ]
         },
         {
           "type": "formula",
@@ -383,8 +465,14 @@
     {
       "name": "y",
       "type": "linear",
-      "domain": [0, 1],
-      "range": [65, 532]
+      "domain": [
+        0,
+        1
+      ],
+      "range": [
+        42,
+        560
+      ]
     },
     {
       "name": "genre_color",
@@ -417,7 +505,7 @@
       "encode": {
         "update": {
           "path": {
-            "signal": "'M170,' + scale('y', datum.source_y0) + ' C268,' + scale('y', datum.source_y0) + ' 360,' + scale('y', datum.target.target_y0) + ' 458,' + scale('y', datum.target.target_y0) + ' L458,' + scale('y', datum.target.target_y1) + ' C360,' + scale('y', datum.target.target_y1) + ' 268,' + scale('y', datum.source_y1) + ' 170,' + scale('y', datum.source_y1) + ' Z'"
+            "signal": "'M89,' + scale('y', datum.source_y0) + ' C202,' + scale('y', datum.source_y0) + ' 308,' + scale('y', datum.target.target_y0) + ' 420,' + scale('y', datum.target.target_y0) + ' L420,' + scale('y', datum.target.target_y1) + ' C308,' + scale('y', datum.target.target_y1) + ' 202,' + scale('y', datum.source_y1) + ' 89,' + scale('y', datum.source_y1) + ' Z'"
           },
           "fill": {
             "scale": "genre_color",
@@ -449,7 +537,7 @@
       "encode": {
         "update": {
           "path": {
-            "signal": "'M620,' + scale('y', datum.source_y0) + ' C735,' + scale('y', datum.source_y0) + ' 835,' + scale('y', datum.target.target_y0) + ' 950,' + scale('y', datum.target.target_y0) + ' L950,' + scale('y', datum.target.target_y1) + ' C835,' + scale('y', datum.target.target_y1) + ' 735,' + scale('y', datum.source_y1) + ' 620,' + scale('y', datum.source_y1) + ' Z'"
+            "signal": "'M607,' + scale('y', datum.source_y0) + ' C739,' + scale('y', datum.source_y0) + ' 854,' + scale('y', datum.target.target_y0) + ' 986,' + scale('y', datum.target.target_y0) + ' L986,' + scale('y', datum.target.target_y1) + ' C854,' + scale('y', datum.target.target_y1) + ' 739,' + scale('y', datum.source_y1) + ' 607,' + scale('y', datum.source_y1) + ' Z'"
           },
           "fill": {
             "scale": "genre_color",
@@ -479,8 +567,12 @@
       },
       "encode": {
         "update": {
-          "x": {"value": 149},
-          "x2": {"value": 170},
+          "x": {
+            "value": 65
+          },
+          "x2": {
+            "value": 89
+          },
           "y": {
             "signal": "scale('y', datum.y0) + 1"
           },
@@ -507,8 +599,12 @@
       },
       "encode": {
         "update": {
-          "x": {"value": 458},
-          "x2": {"value": 620},
+          "x": {
+            "value": 420
+          },
+          "x2": {
+            "value": 607
+          },
           "y": {
             "signal": "scale('y', datum.y0) + 1"
           },
@@ -541,8 +637,12 @@
       },
       "encode": {
         "update": {
-          "x": {"value": 950},
-          "x2": {"value": 974},
+          "x": {
+            "value": 986
+          },
+          "x2": {
+            "value": 1014
+          },
           "y": {
             "signal": "scale('y', datum.y0) + 1"
           },
@@ -568,7 +668,9 @@
       },
       "encode": {
         "update": {
-          "x": {"value": 137},
+          "x": {
+            "value": 51
+          },
           "y": {
             "signal": "scale('y', (datum.y0 + datum.y1) / 2)"
           },
@@ -598,7 +700,9 @@
       },
       "encode": {
         "update": {
-          "x": {"value": 539},
+          "x": {
+            "value": 514
+          },
           "y": {
             "signal": "scale('y', (datum.y0 + datum.y1) / 2)"
           },
@@ -630,7 +734,9 @@
       },
       "encode": {
         "update": {
-          "x": {"value": 989},
+          "x": {
+            "value": 1031
+          },
           "y": {
             "signal": "scale('y', (datum.y0 + datum.y1) / 2)"
           },
@@ -656,8 +762,12 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 160},
-          "y": {"value": 30},
+          "x": {
+            "value": 78
+          },
+          "y": {
+            "value": 16
+          },
           "text": {
             "value": "ERA"
           },
@@ -680,8 +790,12 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 539},
-          "y": {"value": 30},
+          "x": {
+            "value": 514
+          },
+          "y": {
+            "value": 16
+          },
           "text": {
             "value": "GENRE"
           },
@@ -704,8 +818,12 @@
       "type": "text",
       "encode": {
         "update": {
-          "x": {"value": 962},
-          "y": {"value": 30},
+          "x": {
+            "value": 1000
+          },
+          "y": {
+            "value": 16
+          },
           "text": {
             "value": "BOX OFFICE"
           },
@@ -720,32 +838,6 @@
           },
           "fill": {
             "value": "#6F7E8D"
-          }
-        }
-      }
-    },
-    {
-      "type": "text",
-      "encode": {
-        "update": {
-          "x": {"value": 8},
-          "y": {
-            "signal": "height - 7"
-          },
-          "text": {
-            "value": "Smaller flows (fewer than 3 films) are muted, not removed. Genre ordering reduces crossings; ribbon width represents film count."
-          },
-          "fill": {
-            "value": "#647589"
-          },
-          "font": {
-            "value": "Arial"
-          },
-          "fontStyle": {
-            "value": "italic"
-          },
-          "fontSize": {
-            "value": 11
           }
         }
       }

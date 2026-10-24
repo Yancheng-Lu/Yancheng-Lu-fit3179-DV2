@@ -7,17 +7,7 @@
   "height": 380,
   "background": "white",
 
-  "title": {
-    "text": "A Cinema in Motion",
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 22,
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 12,
-    "subtitleColor": "#687684",
-    "offset": 16
-  },
+
 
   "data": {
     "url": "https://raw.githubusercontent.com/Yancheng-Lu/fit3179-australian-movies/refs/heads/main/data/movies_combined_1980_2025.csv"

@@ -1,29 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 840,
-  "height": 480,
+  "height": 440,
   "padding": {
-    "top": 70,
-    "left": 20,
-    "right": 120,
-    "bottom": 45
+    "top": 16,
+    "left": 12,
+    "right": 16,
+    "bottom": 0
   },
   "background": "white",
-  "title": {
-    "text": "Film Production Across the World",
-    "subtitle": {
-      "signal": "selectedGenre + ' · ' + yearStart + '–' + yearEnd"
-    },
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 22,
-    "fontWeight": "bold",
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 11,
-    "subtitleColor": "#687684",
-    "offset": 14
-  },
   "signals": [
     {
       "name": "mapZoom",
@@ -69,7 +54,7 @@
       "name": "worldProjection",
       "type": "equalEarth",
       "scale": {
-        "signal": "150 * mapZoom"
+        "signal": "160 * mapZoom"
       },
       "translate": [
         {
@@ -239,10 +224,7 @@
         "data": "countryCounts",
         "field": "film_count"
       },
-      "range": [
-        3,
-        75
-      ],
+      "range": { "signal": "[3 * mapZoom, 75 * mapZoom]" },
       "zero": true,
       "nice": true
     }
@@ -425,34 +407,7 @@
         }
       }
     },
-    {
-      "type": "text",
-      "encode": {
-        "update": {
-          "x": {
-            "value": 16
-          },
-          "y": {
-            "signal": "height - 12"
-          },
-          "text": {
-            "value": "Bar height represents film count; square-root scaling is used to reduce overlap between neighbouring countries."
-          },
-          "font": {
-            "value": "Arial"
-          },
-          "fontSize": {
-            "value": 10
-          },
-          "fontStyle": {
-            "value": "italic"
-          },
-          "fill": {
-            "value": "#7A838A"
-          }
-        }
-      }
-    },
+
     {
       "type": "rect",
       "encode": {

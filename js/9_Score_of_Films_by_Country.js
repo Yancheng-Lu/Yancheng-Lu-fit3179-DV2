@@ -1,29 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 840,
-  "height": 480,
+  "height": 450,
   "padding": {
-    "top": 70,
-    "left": 20,
-    "right": 140,
-    "bottom": 45
+    "top": 16,
+    "left": 12,
+    "right": 16,
+    "bottom": 0
   },
   "background": "white",
-  "title": {
-    "text": "Average Film Score by Country",
-    "subtitle": {
-      "signal": "selectedGenre + ' · ' + yearStart + '–' + yearEnd"
-    },
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 22,
-    "fontWeight": "bold",
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 11,
-    "subtitleColor": "#687684",
-    "offset": 14
-  },
   "signals": [
     {
       "name": "selectedGenre",
@@ -69,7 +54,7 @@
     {
       "name": "worldProjection",
       "type": "equalEarth",
-      "scale": 150,
+      "scale": 160,
       "translate": [
         {
           "signal": "width / 2"
@@ -128,7 +113,7 @@
         {
           "type": "formula",
           "as": "country",
-          "expr": "trim(datum.country) === 'United States' || trim(datum.country) === 'United States of America' ? 'United States of America' : trim(datum.country)"
+          "expr": "trim(datum.country)"
         },
         {
           "type": "filter",

@@ -5,20 +5,8 @@
   "background": "white",
 
   "width": 680,
-  "height": 440,
+  "height": 560,
 
-  "title": {
-    "text": "Changing Genres, Changing Fortunes",
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 23,
-    "fontWeight": "bold",
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 12,
-    "subtitleColor": "#5C6B7A",
-    "offset": 16
-  },
 
   "data": {
     "url": "https://raw.githubusercontent.com/Yancheng-Lu/fit3179-australian-movies/refs/heads/main/data/movies_combined_1980_2025.csv"

@@ -1,29 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "width": 860,
-  "height": 500,
+  "height": 450,
   "padding": {
-    "top": 75,
-    "left": 20,
-    "right": 145,
-    "bottom": 45
+    "top": 16,
+    "left": 12,
+    "right": 16,
+    "bottom": 0
   },
   "background": "white",
-  "title": {
-    "text": "How Australian Cinema Connects to the World",
-    "subtitle": {
-      "signal": "selectedGenre + ' · ' + yearStart + '–' + yearEnd"
-    },
-    "anchor": "start",
-    "font": "Georgia",
-    "fontSize": 22,
-    "fontWeight": "bold",
-    "color": "#1F2D3D",
-    "subtitleFont": "Arial",
-    "subtitleFontSize": 11,
-    "subtitleColor": "#687684",
-    "offset": 14
-  },
   "signals": [
     {
       "name": "selectedGenre",
@@ -77,7 +62,7 @@
     {
       "name": "worldProjection",
       "type": "equalEarth",
-      "scale": 150,
+      "scale": 160,
       "translate": [
         {
           "signal": "width / 2"
