@@ -2,7 +2,7 @@
   "$schema": "https://vega.github.io/schema/vega/v5.json",
   "description": "Hierarchical treemap of the highest-grossing unique Australian-linked films with positive reported worldwide gross, 1980–2025. Genre groups contain film rectangles sized by gross; orange indicates at least USD 300 million.",
   "width": 820,
-  "height": 550,
+  "height": 500,
   "padding": 16,
   "background": "white",
   "signals": [
@@ -268,7 +268,7 @@
         {
           "type": "formula",
           "as": "label_font",
-          "expr": "min(10,max(4,sqrt(max(1,datum.x1-datum.x0-10)*max(1,datum.y1-datum.y0-24)/max(1,length(datum.name)*0.8))))"
+          "expr": "min(10,max(4,sqrt(max(1,datum.x1-datum.x0-12)*max(1,datum.y1-datum.y0-24)/max(1,length(datum.name)*0.8))))"
         },
         {
           "type": "formula",
@@ -282,8 +282,28 @@
         },
         {
           "type": "formula",
+          "as": "gross_label",
+          "expr": "format(datum.gross/1000000,'$.1f')+'M'"
+        },
+        {
+          "type": "formula",
+          "as": "gross_lines",
+          "expr": "split(replace(replace(datum.gross_label, regexp('.{1,' + datum.label_chars + '}', 'g'), '$&|'), /[|]$/, ''), '|')"
+        },
+        {
+          "type": "formula",
+          "as": "content_lines",
+          "expr": "split(join(datum.label_lines,'|')+'|'+join(datum.gross_lines,'|'),'|')"
+        },
+        {
+          "type": "formula",
+          "as": "longest_line",
+          "expr": "max(min(length(datum.gross_label),datum.label_chars),datum.label_chars)"
+        },
+        {
+          "type": "formula",
           "as": "fit_font",
-          "expr": "min(datum.label_font,max(2,(datum.y1-datum.y0-20)/max(1,length(datum.label_lines))/1.15))"
+          "expr": "max(0.5,min(datum.label_font,(datum.x1-datum.x0-12)/(max(1,datum.longest_line)*0.65),(datum.y1-datum.y0-12)/(length(datum.content_lines)*1.2+0.5)))"
         }
       ]
     }
@@ -441,7 +461,7 @@
             "signal": "datum.y0+5"
           },
           "text": {
-            "field": "label_lines"
+            "field": "content_lines"
           },
           "baseline": {
             "value": "top"
@@ -456,80 +476,14 @@
             "field": "fit_font"
           },
           "fill": {
-            "signal": "datum.gross >= 180000000 ? 'white' : '#173b55'"
+            "value": "#173b55"
           },
           "lineHeight": {
-            "signal": "datum.fit_font*1.15"
+            "signal": "datum.fit_font*1.2"
           }
         }
       },
       "name": "filmNameLabels"
-    },
-    {
-      "type": "text",
-      "from": {
-        "data": "filmLeaves"
-      },
-      "interactive": false,
-      "encode": {
-        "update": {
-          "x": {
-            "signal": "datum.x0+6"
-          },
-          "y": {
-            "signal": "datum.y0+7+length(datum.label_lines)*datum.fit_font*1.15"
-          },
-          "text": {
-            "signal": "format(datum.gross/1000000,'$.1f')+'M'"
-          },
-          "baseline": {
-            "value": "top"
-          },
-          "font": {
-            "value": "Arial"
-          },
-          "fontSize": {
-            "signal": "min(10,max(3,(datum.x1-datum.x0-10)/7))"
-          },
-          "fill": {
-            "signal": "datum.gross >= 180000000 ? 'white' : '#173b55'"
-          }
-        }
-      },
-      "name": "filmGrossLabels"
-    },
-    {
-      "name": "genreCountLabels",
-      "type": "text",
-      "from": {
-        "data": "genreGroups"
-      },
-      "interactive": false,
-      "encode": {
-        "update": {
-          "x": {
-            "signal": "datum.x0+7"
-          },
-          "y": {
-            "signal": "datum.y0+24"
-          },
-          "text": {
-            "signal": "datum.film_count+' films'"
-          },
-          "font": {
-            "value": "Arial"
-          },
-          "fontSize": {
-            "signal": "min(9,max(4,(datum.x1-datum.x0-12)/7))"
-          },
-          "fill": {
-            "value": "#173b55"
-          },
-          "baseline": {
-            "value": "middle"
-          }
-        }
-      }
     }
   ],
   "legends": [
@@ -545,7 +499,7 @@
       "titleColor": "#173b55",
       "labelFont": "Arial",
       "labelFontSize": 11,
-      "labelColor": "#324d60",
+      "labelColor": "#173b55",
       "labelLimit": 165,
       "rowPadding": 12,
       "offset": 14

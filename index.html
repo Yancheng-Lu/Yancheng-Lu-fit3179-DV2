@@ -203,10 +203,11 @@
 
           <aside class="cinema-story-copy" aria-labelledby="new-story-13">
             <h4 id="new-story-13">A few large rectangles, a large share of the box office</h4>
-            <p>The default view selects the <strong class="story-highlight">30 highest-grossing films</strong> with positive reported worldwide grosses. They are grouped by <strong class="story-key">primary genre</strong>, with each film’s rectangle sized by its gross.</p>
-            <p><strong class="story-key">The Matrix Reloaded</strong> leads at about <strong class="story-highlight">$738.6 million</strong>, while <strong class="story-key">The Lego Movie</strong> contributes about <strong class="story-highlight">$470.8 million</strong>. Large rectangles reveal how a few films dominate this selection.</p>
-            <p class="genre-story-conclusion">Orange highlights films grossing <strong class="story-highlight">at least $300 million</strong>; blue identifies the remaining films. Areas compare <strong class="story-key">gross revenue, not net profit</strong>, and describe the selected top films rather than every Australian-linked release.</p>
-            <p>Hover to read film details and highlight its genre. Adjust the number of top films to see how the concentration changes.</p>
+            <p>The default view selects the <strong class="story-highlight">30 highest-grossing films</strong> with positive reported worldwide grosses. Grouped by <strong class="story-key">primary genre</strong>, each rectangle represents one film, with its area proportional to reported gross.</p>
+            <p><strong class="story-key">The Matrix Reloaded</strong> leads at about <strong class="story-highlight">$738.6 million</strong>, while <strong class="story-key">The Lego Movie</strong> contributes about <strong class="story-highlight">$470.8 million</strong>. Their large rectangles reveal how individual releases contribute a substantial share of this selection’s earnings.</p>
+            <p>Orange identifies films grossing <strong class="story-highlight">at least $300 million</strong>; blue identifies those below this threshold. The tiles display <strong class="story-key">film names and worldwide grosses</strong>; hover for release years, genres and ranks.</p>
+            <p class="genre-story-conclusion">These areas compare <strong class="story-key">gross revenue, not net profit</strong>. These selected high-grossing releases do not represent the entire industry or every film within a genre.</p>
+            <p>Hover to explore film details and highlight its genre. Adjust the number of top films to see how box-office concentration changes.</p>
           </aside>
 
           <div class="visual-card">
@@ -236,6 +237,25 @@
 
 
 
+
+        <article class="visual-row cinema-story story-left">
+          <div class="visual-copy wide-copy">
+            <h3>Decade Profiles in Australian Cinema</h3>
+          </div>
+
+          <aside class="cinema-story-copy" aria-labelledby="genre-profiles-story-title">
+            <h4 id="genre-profiles-story-title">Different decades, different profiles</h4>
+            <p>Compare the <strong class="story-highlight">1980s–2020s</strong> across film count, median gross, median budget, median audience score, genre diversity and international collaboration.</p>
+            <p>The <strong class="story-key">2010s</strong> lead in film count with <strong class="story-highlight">223 films</strong>, while the <strong class="story-key">2000s</strong> have the highest median gross and budget. The <strong class="story-key">1980s</strong> record the highest median audience score, showing that greater output does not necessarily mean stronger reception.</p>
+            <p>Each metric is <strong class="story-key">normalised to its largest decade value</strong>, set to <strong class="story-highlight">100</strong>. The centre represents zero; a larger shape is not an overall measure of success.</p>
+            <p class="genre-story-conclusion"><strong class="story-key">Genre diversity</strong> counts distinct genre tags. Collaboration is the share of films with multiple production countries. Medians use valid positive records. The <strong class="story-highlight">2020s cover only 2020–2025</strong>, so their film count reflects a shorter period.</p>
+            <p>Select a decade to emphasise its profile. Hover for actual values, normalised scores and sample sizes.</p>
+          </aside>
+
+          <div class="visual-card">
+            <div id="vis12" class="visualisation"></div>
+          </div>
+        </article>
 
         <article class="visual-row cinema-story story-left">
           <div class="visual-copy wide-copy">
@@ -447,6 +467,7 @@
       ["vis5",  "js/5_Blockbusters_and_Expensive_Misses.js"],
       ["vis6",  "js/6_Did_Audiences_Think_the_Films_Got_Better.js"],
       ["vis7",  "js/7_The_Companies_Behind_Australian_Fil.js"],
+      ["vis12", "js/12_Beyond_the_Average_How_Film_Ratings_Spread.js"],
       ["vis8",  "js/8_Number_of_Films_by_Country.js"],
       ["vis9",  "js/9_Score_of_Films_by_Country.js"],
       ["vis10", "js/How Australian CinemaConnects to the World.js"],

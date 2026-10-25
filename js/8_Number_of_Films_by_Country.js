@@ -435,16 +435,16 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "width - 112"
+            "signal": "width - 96"
           },
           "x2": {
-            "signal": "width - 106"
+            "signal": "width - 90"
           },
           "y": {
-            "value": 16
+            "value": 2
           },
           "y2": {
-            "value": 39
+            "value": 25
           },
           "fill": {
             "value": "#17365D"
@@ -463,10 +463,10 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "width - 98"
+            "signal": "width - 82"
           },
           "y": {
-            "value": 28
+            "value": 14
           },
           "text": {
             "value": "Australia"
@@ -494,16 +494,16 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "width - 112"
+            "signal": "width - 96"
           },
           "x2": {
-            "signal": "width - 106"
+            "signal": "width - 90"
           },
           "y": {
-            "value": 48
+            "value": 34
           },
           "y2": {
-            "value": 71
+            "value": 57
           },
           "fill": {
             "value": "#D46A4C"
@@ -522,10 +522,10 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "width - 98"
+            "signal": "width - 82"
           },
           "y": {
-            "value": 60
+            "value": 46
           },
           "text": {
             "value": "Other countries"
@@ -553,10 +553,10 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "width - 112"
+            "signal": "width - 96"
           },
           "y": {
-            "value": 97
+            "value": 83
           },
           "text": {
             "value": "Taller bar"
@@ -581,10 +581,10 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "width - 112"
+            "signal": "width - 96"
           },
           "y": {
-            "value": 112
+            "value": 98
           },
           "text": {
             "value": "= more films"
